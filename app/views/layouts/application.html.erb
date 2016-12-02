@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChilangoDev</title>
+    <%= csrf_meta_tags %>
+	
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/cyborg/bootstrap.min.css">
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+  <body>
+  	<nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left">
+        	<li class="<%= controller_name == "posts" && "active" %>">
+        		<%= link_to posts_path do %>
+        		<i class="glyphicon glyphicon-edit"></i>Posts
+        		<% end %>
+        	</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <% if signed_in? %>
+          <li> <a href="<%= destroy_user_session_path %>" data-method='delete'>
+Salir
+          </a></li>
+        <% else %>
+          <li><a href="<%= new_user_session_path %>"> Login </a></li>
+          <li><a href="<%= new_user_registration_path %>"> Registro </a></li>
+        <% end %>
+        </ul>
+      </div>
+    </nav>
+  	<div class="container">
+  	  <%if flash[:alert]%>
+  		<div class="alert">
+  		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  		  <strong>Warning!</strong><%= flash[:alert] %>
+  		</div>
+  		<% end %>
+    <%= yield %>
+  </body>
+</html>
